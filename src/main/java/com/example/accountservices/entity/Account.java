@@ -1,9 +1,7 @@
 package com.example.accountservices.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +9,8 @@ import java.util.Set;
 @Entity
 @Table(name = "account")
 @Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account {
@@ -33,7 +33,6 @@ public class Account {
         name = "user_role",
         joinColumns = @JoinColumn(name = "account_id")
     )
-    @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private Set<UserRole> roles = new HashSet<>();
+    private Set<String> roles;
 }

@@ -25,7 +25,7 @@ public class ExceptionController {
 
         Map<String, String> map = new HashMap<>();
         map.put("code", "409");
-        map.put("error", "Confict data");
+        map.put("error", "Conflict data");
 
         return map;
     }

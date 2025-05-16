@@ -1,11 +1,9 @@
 package com.example.accountservices.dto;
 
-import com.example.accountservices.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,8 +15,9 @@ import java.util.Set;
 public class AccountDTO {
     private Long id;
     private String name;
+    private String password;
     private String username;
-    private Set<UserRole> roles;
+    private Set<String> roles;
 
     // Password excluded from DTO for security purposes
     // Use specific request DTOs for operations requiring password

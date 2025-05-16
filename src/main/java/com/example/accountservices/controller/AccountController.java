@@ -1,12 +1,16 @@
 package com.example.accountservices.controller;
 
+import com.example.accountservices.client.NotificationService;
+import com.example.accountservices.client.StatisticService;
 import com.example.accountservices.dto.AccountDTO;
+import com.example.accountservices.dto.StatisticDTO;
 import com.example.accountservices.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,14 +18,18 @@ import java.util.Optional;
 public class AccountController {
 
     private final AccountService accountService;
+    private final StatisticService statisticService;
 
-    public AccountController(AccountService accountService) {
+    public AccountController(AccountService accountService, StatisticService statisticService) {
         this.accountService = accountService;
+        this.statisticService = statisticService;
     }
     // add new
     @PostMapping("/account")
     public AccountDTO addAccount(@RequestBody AccountDTO accountDTO) {
         accountService.add(accountDTO);
+        // Send notification using StatisticService with Feign client
+        statisticService.add(new StatisticDTO("Account " + accountDTO.getUsername() + " is created at", new Date()));
         return accountDTO;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "statistic-service", url = "http://localhost:9082", fallback = StatisticServiceImpl.class)
+@FeignClient(name = "statistic-service", fallback = StatisticServiceImpl.class)
 public interface StatisticService {
 
     @PostMapping("/statistic")

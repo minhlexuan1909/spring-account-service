@@ -6,11 +6,13 @@ import com.example.accountservices.dto.AccountDTO;
 import com.example.accountservices.dto.MessageDTO;
 import com.example.accountservices.dto.StatisticDTO;
 import com.example.accountservices.service.AccountService;
+import jakarta.annotation.security.PermitAll;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -33,6 +35,7 @@ public class AccountController {
 
     // add new
     @PostMapping("/account")
+    @PermitAll
     public AccountDTO addAccount(@RequestBody AccountDTO accountDTO) {
         accountService.add(accountDTO);
 
@@ -53,6 +56,7 @@ public class AccountController {
 
     // get all
     @GetMapping("/accounts")
+    @PreAuthorize("hasAuthority('SCOPE_read') && hasRole('ADMIN')")
     public List<AccountDTO> getAll() {
         logger.info("AccountService Controller: get all accounts");
 
